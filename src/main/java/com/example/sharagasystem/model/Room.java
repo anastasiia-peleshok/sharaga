@@ -20,7 +20,7 @@ public class Room  extends AbstractEntity{
     private Gender gender;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<User> residents;
+    private List<UserDetails> residents;
 
     @ManyToOne
     @JoinColumn(name = "dorm_id", nullable = false)

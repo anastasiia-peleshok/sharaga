@@ -14,12 +14,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "furnitures")
 public class Furniture extends AbstractEntity {
+    private String name;
+    private String itemNumber;
     private FurnitureType furnitureType;
     @ManyToOne
     private Room room;
     @ManyToOne
-    private User user;
+    private UserDetails user;
     @ManyToOne
-    @JoinColumn(name = "dorm_id")
     private Dormitory dormitory;
 }

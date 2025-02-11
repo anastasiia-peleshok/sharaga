@@ -23,10 +23,10 @@ public class Dormitory extends AbstractEntity {
     private String name;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
-    private List<User> staff;
+    private List<UserDetails> staff;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
-    private List<User> residents;
+    private List<UserDetails> residents;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
     private List<Room> rooms;

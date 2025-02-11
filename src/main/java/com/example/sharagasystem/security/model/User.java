@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 
@@ -23,7 +24,9 @@ import org.hibernate.annotations.CreationTimestamp;
 @Setter
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User extends AbstractEntity {
+    private int id;
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
@@ -35,21 +38,11 @@ public class User extends AbstractEntity {
 
     private String firstName;
     private String lastName;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
     private String phoneNumber;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Furniture> furnitureList;
-
-    @ManyToOne
-    @JoinColumn(name="room_id")
-    private Room room;
-
-    @ManyToOne
-    @JoinColumn(name="dorm_id")
-    private Dormitory dormitory;
 
 //    private List<Notfication> notfications = new ArrayList<>();
 
