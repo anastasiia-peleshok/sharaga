@@ -1,6 +1,5 @@
 package com.example.sharagasystem.model;
 
-import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class Furniture extends AbstractEntity {
     @ManyToOne
     private Room room;
     @ManyToOne
-    private UserDetails user;
+    private ResidentDetails user;
     @ManyToOne
     private Dormitory dormitory;
 }

@@ -1,6 +1,5 @@
 package com.example.sharagasystem.model;
 
-import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,12 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "rooms")
 public class Room  extends AbstractEntity{
+    @Column(unique = true)
     private String number;
     private int capacity;
     private Gender gender;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<UserDetails> residents;
+    private List<ResidentDetails> residents;
 
     @ManyToOne
     @JoinColumn(name = "dorm_id", nullable = false)

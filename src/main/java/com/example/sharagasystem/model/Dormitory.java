@@ -1,6 +1,5 @@
 package com.example.sharagasystem.model;
 
-import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -23,10 +22,10 @@ public class Dormitory extends AbstractEntity {
     private String name;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
-    private List<UserDetails> staff;
+    private List<ResidentDetails> staff;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
-    private List<UserDetails> residents;
+    private List<ResidentDetails> residents;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
     private List<Room> rooms;

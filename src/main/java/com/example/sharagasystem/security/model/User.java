@@ -26,7 +26,6 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends AbstractEntity {
-    private int id;
     @Column(unique = true, nullable = false)
     private String email;
     private String password;

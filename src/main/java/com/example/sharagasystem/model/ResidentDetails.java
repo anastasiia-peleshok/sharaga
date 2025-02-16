@@ -3,11 +3,8 @@ package com.example.sharagasystem.model;
 import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -21,11 +18,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_details")
+@Table(name = "resident_details")
 @PrimaryKeyJoinColumn
-public class UserDetails extends User {
-    private String catName;
-
+public class ResidentDetails extends User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Furniture> furnitureList;
 
