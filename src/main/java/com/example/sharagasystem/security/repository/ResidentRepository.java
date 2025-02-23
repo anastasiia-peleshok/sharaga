@@ -1,7 +1,6 @@
-package com.example.sharagasystem.repository;
+package com.example.sharagasystem.security.repository;
 
 import com.example.sharagasystem.model.ResidentDetails;
-import com.example.sharagasystem.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

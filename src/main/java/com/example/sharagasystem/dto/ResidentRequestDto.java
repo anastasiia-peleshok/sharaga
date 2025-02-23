@@ -15,7 +15,7 @@ public class ResidentRequestDto {
     @Nullable
     private String email;
     @Nullable
-    private Role role;
+    private String role;
     @Nullable
     private String phoneNumber;
     @Nullable
