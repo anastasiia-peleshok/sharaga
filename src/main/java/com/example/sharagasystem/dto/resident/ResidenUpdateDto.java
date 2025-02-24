@@ -1,7 +1,5 @@
 package com.example.sharagasystem.dto.resident;
 
-
-import jakarta.annotation.Nullable;
 import lombok.Data;
 
 @Data

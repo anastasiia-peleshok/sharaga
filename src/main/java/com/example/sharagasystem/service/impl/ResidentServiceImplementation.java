@@ -10,7 +10,7 @@ import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.repository.DormitoryRepository;
 import com.example.sharagasystem.repository.ResidentRepository;
 import com.example.sharagasystem.repository.RoomRepository;
-import com.example.sharagasystem.service.ResidentrService;
+import com.example.sharagasystem.service.ResidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,12 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ResidentrServiceImplementation implements ResidentrService {
-private final ResidentRepository residentRepository;
-private final ResidentMapper residentMapper;
-private final DormitoryRepository dormitoryRepository;
-private final RoomRepository roomRepository;
+public class ResidentServiceImplementation implements ResidentService {
+    private final ResidentRepository residentRepository;
+    private final ResidentMapper residentMapper;
+    private final DormitoryRepository dormitoryRepository;
+    private final RoomRepository roomRepository;
+
     @Override
     public ResidentResponseDto saveResident(ResidentRequestDto residentRequestDto) {
         ResidentDetails resident = residentMapper.toEntity(residentRequestDto);
@@ -40,7 +41,7 @@ private final RoomRepository roomRepository;
 
     @Override
     public ResidentResponseDto getResidentById(UUID id) {
-        if(residentRepository.findById(id).isPresent()){
+        if (residentRepository.findById(id).isPresent()) {
             return residentMapper.toDto(residentRepository.findById(id).get());
         }
         throw new IllegalArgumentException("Resident not found");
@@ -48,7 +49,7 @@ private final RoomRepository roomRepository;
 
     @Override
     public ResidentResponseDto getResidentByEmail(String email) {
-        if(residentRepository.findByEmail(email).isPresent()){
+        if (residentRepository.findByEmail(email).isPresent()) {
             return residentMapper.toDto(residentRepository.findByEmail(email).get());
         }
         throw new IllegalArgumentException("Resident not found");
@@ -56,15 +57,15 @@ private final RoomRepository roomRepository;
 
     @Override
     public void deleteResidentById(UUID id) {
-        if(residentRepository.findById(id).isPresent()){
-           residentRepository.delete(residentRepository.findById(id).get());
+        if (residentRepository.findById(id).isPresent()) {
+            residentRepository.delete(residentRepository.findById(id).get());
         }
         throw new IllegalArgumentException("Resident not found");
     }
 
     @Override
     public ResidentResponseDto updateResident(UUID id, ResidenUpdateDto updatedResident) {
-        if(residentRepository.findById(id).isPresent()){
+        if (residentRepository.findById(id).isPresent()) {
             ResidentDetails residentDetails = residentRepository.findById(id).get();
             setUpdatedFields(residentDetails, updatedResident);
             return residentMapper.toDto(residentRepository.save(residentDetails));

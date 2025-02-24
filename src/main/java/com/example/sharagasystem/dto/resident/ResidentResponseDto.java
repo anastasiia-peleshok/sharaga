@@ -10,9 +10,7 @@ public class ResidentResponseDto {
         private String lastName;
         private String email;
         private String role;
-        @Nullable
         private String phoneNumber;
-        @Nullable
         private String roomNumber;
         private String dormitoryName;
 
