@@ -1,13 +1,11 @@
-package com.example.sharagasystem.dto;
+package com.example.sharagasystem.dto.resident;
 
-import com.example.sharagasystem.security.model.Role;
 import jakarta.annotation.Nullable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ResidentResponseDto {
+        private static final String CANNOT_BE_NULL_MSG = "cannot be null or blank";
         private String firstName;
         private String lastName;
         private String email;

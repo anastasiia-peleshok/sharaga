@@ -1,6 +1,6 @@
-package com.example.sharagasystem.security.repository;
+package com.example.sharagasystem.repository;
 
-import com.example.sharagasystem.security.model.User;
+import com.example.sharagasystem.model.User;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

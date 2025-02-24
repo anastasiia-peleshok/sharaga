@@ -1,49 +1,21 @@
 package com.example.sharagasystem.mapper;
 
-import com.example.sharagasystem.dto.ResidentRequestDto;
-import com.example.sharagasystem.dto.ResidentResponseDto;
+import com.example.sharagasystem.dto.resident.ResidentRequestDto;
+import com.example.sharagasystem.dto.resident.ResidentResponseDto;
 import com.example.sharagasystem.model.ResidentDetails;
-import com.example.sharagasystem.security.model.Role;
-import com.example.sharagasystem.security.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@RequiredArgsConstructor
-@Component
-public class ResidentMapper {
+@Mapper(config = MapperConfig.class, uses = {
+        RoomMapper.class, DormitoryMapper.class, FurnitureMapper.class
+})
+public interface ResidentMapper {
+    @Mapping(target= "roomNumber", source = "room.number", ignore = true)
+    @Mapping(target= "dormitoryName", source = "dormitory.name", ignore = true)
+    ResidentResponseDto toDto(ResidentDetails residentDetails);
 
-    private final RoleRepository roleRepository;
-
-    public ResidentDetails toEntity(ResidentRequestDto dto) {
-        ResidentDetails residentDetails = new ResidentDetails();
-        if (dto.getFirstName() != null) {
-            residentDetails.setFirstName(dto.getFirstName());
-        }
-        if (dto.getLastName() != null) {
-            residentDetails.setLastName(dto.getLastName());
-        }
-        if (dto.getEmail() != null) {
-            residentDetails.setEmail(dto.getEmail());
-        }
-        if (dto.getRole() != null) {
-            Role.RoleName roleName = Role.RoleName.valueOf(dto.getRole());
-            Role role = roleRepository.findByRoleName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
-            residentDetails.setRole(role);
-        }
-        if (dto.getPhoneNumber() != null) {
-            residentDetails.setPhoneNumber(dto.getPhoneNumber());
-        }
-        return residentDetails;
-    }
-
-    public ResidentResponseDto toDTO(ResidentDetails user) {
-        ResidentResponseDto residentResponseDto = new ResidentResponseDto();
-        residentResponseDto.setFirstName(user.getFirstName());
-        residentResponseDto.setLastName(user.getLastName());
-        residentResponseDto.setEmail(user.getEmail());
-        residentResponseDto.setPhoneNumber(user.getPhoneNumber());
-        residentResponseDto.setRole(user.getRole().getRoleName().toString());
-        return residentResponseDto;
-    }
+    @Mapping(target= "room", ignore = true)
+    @Mapping(target= "dormitory", ignore = true)
+    ResidentDetails toEntity(ResidentRequestDto residentResponseDto);
 }

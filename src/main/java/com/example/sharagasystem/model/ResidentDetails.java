@@ -1,6 +1,5 @@
 package com.example.sharagasystem.model;
 
-import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;

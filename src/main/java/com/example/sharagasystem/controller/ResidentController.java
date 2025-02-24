@@ -1,8 +1,8 @@
 package com.example.sharagasystem.controller;
 
-import com.example.sharagasystem.dto.ResidentRequestDto;
-import com.example.sharagasystem.dto.ResidentResponseDto;
-import com.example.sharagasystem.service.ResidentrServiceImplementation;
+import com.example.sharagasystem.dto.resident.ResidentRequestDto;
+import com.example.sharagasystem.dto.resident.ResidentResponseDto;
+import com.example.sharagasystem.service.impl.ResidentrServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

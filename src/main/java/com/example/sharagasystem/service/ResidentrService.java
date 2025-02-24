@@ -1,7 +1,8 @@
 package com.example.sharagasystem.service;
 
-import com.example.sharagasystem.dto.ResidentRequestDto;
-import com.example.sharagasystem.dto.ResidentResponseDto;
+import com.example.sharagasystem.dto.resident.ResidenUpdateDto;
+import com.example.sharagasystem.dto.resident.ResidentRequestDto;
+import com.example.sharagasystem.dto.resident.ResidentResponseDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,5 +27,5 @@ public interface ResidentrService {
 //    boolean existsByEmail(String email);
 
     // Update resident details
-    ResidentResponseDto updateResident(UUID id, ResidentRequestDto updatedResident);
+    ResidentResponseDto updateResident(UUID id, ResidenUpdateDto updatedResident);
 }
