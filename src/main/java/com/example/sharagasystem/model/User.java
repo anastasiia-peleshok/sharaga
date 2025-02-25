@@ -1,12 +1,7 @@
-package com.example.sharagasystem.security.model;
+package com.example.sharagasystem.model;
 
-import com.example.sharagasystem.model.AbstractEntity;
-import com.example.sharagasystem.model.Dormitory;
-import com.example.sharagasystem.model.Furniture;
-import com.example.sharagasystem.model.Room;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -14,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 
