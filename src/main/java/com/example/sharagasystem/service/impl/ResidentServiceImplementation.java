@@ -79,13 +79,13 @@ public class ResidentServiceImplementation implements ResidentService {
         Optional.ofNullable(updateDto.getLastName()).ifPresent(resident::setLastName);
         Optional.ofNullable(updateDto.getEmail()).ifPresent(resident::setEmail);
         Optional.ofNullable(updateDto.getPhoneNumber()).ifPresent(resident::setPhoneNumber);
-        Optional.ofNullable(updateDto.getDormitoryName()).ifPresent(
+        Optional.ofNullable(updateDto.getDormitoryId()).ifPresent(
                 dormitoryName -> {
                     Optional<Dormitory> dormitory = dormitoryRepository.findByName(dormitoryName);
                     dormitory.ifPresent(resident::setDormitory);
                 }
         );
-        Optional.ofNullable(updateDto.getRoomNumber()).ifPresent(
+        Optional.ofNullable(updateDto.getRoomId()).ifPresent(
                 roomNumber -> {
                     Optional<Room> room = roomRepository.findByNumber(roomNumber);
                     room.ifPresent(resident::setRoom);

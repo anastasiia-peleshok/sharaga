@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
         DormitoryMapper.class
 })
 public interface RoomMapper {
-    @Mapping(target = "dormitory", source = "dormitory.name")
+    @Mapping(target = "dormitoryId", source = "dormitory.id")
     RoomResponseDto toDto(Room room);
 
     @Mapping(target = "dormitory", ignore = true)

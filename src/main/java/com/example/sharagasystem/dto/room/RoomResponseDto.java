@@ -8,5 +8,5 @@ public class RoomResponseDto {
     private String number;
     private int capacity;
     private String gender;
-    private String dormitory;
+    private String dormitoryId;
 }

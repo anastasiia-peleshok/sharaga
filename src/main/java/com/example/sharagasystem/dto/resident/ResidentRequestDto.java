@@ -10,7 +10,7 @@ public class ResidentRequestDto {
     private String email;
     private String role;
     private String phoneNumber;
-    private String roomNumber;
-    private String dormitoryName;
+    private String roomId;
+    private String dormitoryId;
 
 }

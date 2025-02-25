@@ -10,9 +10,9 @@ public class ResidentResponseDto {
         private String lastName;
         private String email;
         private String role;
-        private String phoneNumber;
-        private String roomNumber;
-        private String dormitoryName;
+        private String phoneId;
+        private String roomId;
+        private String dormitoryId;
 
 
 }

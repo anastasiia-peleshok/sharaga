@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FurnitureRequestDto {
     private String name;
-    private String roomNumber;
-    private String userLastName;
-    private String dormitoryName;
+    private String roomId;
+    private String userId;
+    private String dormitoryId;
 }

@@ -16,8 +16,8 @@ public interface FurnitureMapper {
     @Mapping(target = "user", ignore = true)
     Furniture toEntity(FurnitureRequestDto furnitureRequestDto);
 
-    @Mapping(target = "roomNumber", source = "room.number")
-    @Mapping(target = "dormitoryName", source = "dormitory.name")
-    @Mapping(target = "userLastName", source = "user.lastName")
+    @Mapping(target = "roomId", source = "room.id")
+    @Mapping(target = "dormitoryId", source = "dormitory.id")
+    @Mapping(target = "userId", source = "user.id")
     FurnitureResponseDto toDto(Furniture furniture);
 }

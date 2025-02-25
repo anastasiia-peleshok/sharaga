@@ -7,7 +7,7 @@ public class FurnitureResponseDto {
     private String name;
     private String itemNumber;
     private String furnitureType;
-    private String roomNumber;
-    private String userLastName;
-    private String dormitoryName;
+    private String roomId;
+    private String userId;
+    private String dormitoryId;
 }

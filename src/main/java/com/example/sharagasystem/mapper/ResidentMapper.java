@@ -12,8 +12,8 @@ import org.mapstruct.Mapping;
         RoomMapper.class, DormitoryMapper.class, FurnitureMapper.class
 })
 public interface ResidentMapper {
-    @Mapping(target = "roomNumber", source = "room.number", ignore = true)
-    @Mapping(target = "dormitoryName", source = "dormitory.name", ignore = true)
+    @Mapping(target = "roomId", source = "room.id", ignore = true)
+    @Mapping(target = "dormitoryId", source = "dormitory.id", ignore = true)
     @Mapping(target = "role", source = "role.roleName")
     ResidentResponseDto toDto(ResidentDetails residentDetails);
 
