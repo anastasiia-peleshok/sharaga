@@ -4,20 +4,19 @@ import com.example.sharagasystem.dto.ResidentRequestDto;
 import com.example.sharagasystem.dto.ResidentResponseDto;
 import com.example.sharagasystem.model.ResidentDetails;
 import com.example.sharagasystem.repository.ResidentRepository;
-import com.example.sharagasystem.security.model.User;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ResidentrServiceImplementation implements ResidentrService {
-private final ResidentRepository residentRepository;
+public class ResidentServiceImpl implements ResidentService {
+    private final ResidentRepository residentRepository;
 
     private final ModelMapper modelMapper;
 
@@ -30,8 +29,13 @@ private final ResidentRepository residentRepository;
     }
     @Override
     public ResidentResponseDto saveResident(ResidentRequestDto residentRequestDto) {
-        ResidentDetails resident = toEntity(residentRequestDto);
-        ResidentDetails savedUser = residentRepository.save(resident);
+//        ResidentDetails resident = toEntity(residentRequestDto);
+        ResidentDetails residentDetails = new ResidentDetails();
+        residentDetails.setFirstName(residentRequestDto.getFirstName());
+        residentDetails.setLastName(residentRequestDto.getLastName());
+        residentDetails.setEmail(residentRequestDto.getEmail());
+        residentDetails.setPhoneNumber(residentRequestDto.getPhoneNumber());
+        ResidentDetails savedUser = residentRepository.save(residentDetails);
         return toDTO(savedUser);
     }
 
@@ -66,8 +70,10 @@ private final ResidentRepository residentRepository;
 
     @Override
     public ResidentResponseDto updateResident(UUID id, ResidentRequestDto updatedResident) {
-        if(residentRepository.findById(id).isPresent()){
-            ResidentDetails residentDetails = residentRepository.findById(id).get();
+        ResidentResponseDto responseDto = new ResidentResponseDto();
+        Optional<ResidentDetails> optionalResident = residentRepository.findById(id);
+        if(optionalResident.isPresent()){
+            ResidentDetails residentDetails = optionalResident.get();
             if(updatedResident.getFirstName() != null){
                 residentDetails.setFirstName(updatedResident.getFirstName());
             }
@@ -77,9 +83,9 @@ private final ResidentRepository residentRepository;
             if(updatedResident.getEmail() != null){
                 residentDetails.setEmail(updatedResident.getEmail());
             }
-            if(updatedResident.getRole() != null){
-               residentDetails.setRole(updatedResident.getRole());
-            }
+//            if(updatedResident.getRole() != null){
+//               residentDetails.setRole(updatedResident.getRole());
+//            }
             if(updatedResident.getPhoneNumber() != null){
                 residentDetails.setPhoneNumber(updatedResident.getPhoneNumber());
             }

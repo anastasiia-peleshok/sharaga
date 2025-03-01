@@ -1,4 +1,4 @@
-package com.example.sharagasystem.dto;
+package com.example.sharagasystem.security.dto;
 
 import com.example.sharagasystem.security.model.Role;
 import lombok.AllArgsConstructor;
@@ -6,25 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResidentRequestDto {
-//    @Nullable
+public class UserRequestDto {
     private String firstName;
-//    @Nullable
     private String lastName;
-//    @Nullable
     private String email;
-//    @Nullable
-    private String role;
-//    @Nullable
-    private String phoneNumber;
-//    @Nullable
-    private String roomNumber;
-//    @Nullable
-    private String dormitoryName;
-
+    private String password;
+    private Role role;
 }

@@ -2,15 +2,12 @@ package com.example.sharagasystem.service;
 
 import com.example.sharagasystem.dto.ResidentRequestDto;
 import com.example.sharagasystem.dto.ResidentResponseDto;
-import com.example.sharagasystem.model.ResidentDetails;
-import com.example.sharagasystem.security.model.User;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
-public interface ResidentrService {
+public interface ResidentService {
     ResidentResponseDto saveResident(ResidentRequestDto resident);
 
     // Get all residents

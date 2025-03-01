@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResidentResponseDto {
-    public class ReisdentRequestDto {
         private String firstName;
         private String lastName;
         private String email;
@@ -18,6 +17,4 @@ public class ResidentResponseDto {
         @Nullable
         private String roomNumber;
         private String dormitoryName;
-
-    }
 }
