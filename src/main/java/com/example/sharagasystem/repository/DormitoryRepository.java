@@ -1,10 +1,28 @@
 package com.example.sharagasystem.repository;
 
 import com.example.sharagasystem.model.Dormitory;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+@Repository
+public interface DormitoryRepository extends JpaRepository<Dormitory, UUID> {
 
-public interface DormitoryRepository extends JpaRepository<Dormitory, Integer> {
-    Optional<Dormitory> findByName(String name);
+    @Query("""
+        SELECT d
+        FROM Dormitory d
+        WHERE d.deletedAt IS NULL
+        AND d.name like :name
+        """)
+    Dormitory findByName(String name);
+
+    @Query("""
+            SELECT d
+            FROM Dormitory d
+            WHERE d.deletedAt IS NULL
+            order by d.updatedAt DESC
+            """)
+    List<Dormitory> findAllByDeletedAtIsNull();
 }

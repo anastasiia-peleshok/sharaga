@@ -1,23 +1,44 @@
 package com.example.sharagasystem.mapper;
 
-import com.example.sharagasystem.config.MapperConfig;
-import com.example.sharagasystem.dto.furniture.FurnitureRequestDto;
-import com.example.sharagasystem.dto.furniture.FurnitureResponseDto;
 import com.example.sharagasystem.model.Furniture;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import com.example.sharagasystem.model.dto.response.furniture.FurnitureLowInfoResponseDto;
+import com.example.sharagasystem.model.dto.response.furniture.FurnitureResponseDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@Mapper(config = MapperConfig.class, uses = {
-        RoomMapper.class, DormitoryMapper.class, ResidentMapper.class
-})
-public interface FurnitureMapper {
-    @Mapping(target = "room", ignore = true)
-    @Mapping(target = "dormitory", ignore = true)
-    @Mapping(target = "user", ignore = true)
-    Furniture toEntity(FurnitureRequestDto furnitureRequestDto);
+@Component
+@RequiredArgsConstructor
+public class FurnitureMapper {
+    private final RoomMapper roomMapper;
+    private final DormitoryMapper dormitoryMapper;
 
-    @Mapping(target = "roomId", source = "room.id")
-    @Mapping(target = "dormitoryId", source = "dormitory.id")
-    @Mapping(target = "userId", source = "user.id")
-    FurnitureResponseDto toDto(Furniture furniture);
+    public FurnitureResponseDto mapToResponse(Furniture furniture) {
+        if(furniture == null) {
+            return null;
+        }
+        FurnitureResponseDto responseDto = new FurnitureResponseDto();
+        responseDto.setId(furniture.getId());
+        responseDto.setName(furniture.getName());
+        responseDto.setItemNumber(furniture.getItemNumber());
+        responseDto.setFurnitureType(furniture.getType().name());
+        responseDto.setPrice(furniture.getPrice());
+        responseDto.setStatus(furniture.getStatus() != null ? furniture.getStatus().name() : null);
+        responseDto.setRoom(furniture.getRoom() != null ? roomMapper.mapToRoomLowInfoResponseDto(furniture.getRoom()) : null);
+        responseDto.setDormitory(furniture.getDormitory() != null ? dormitoryMapper.mapToLowInfoResponseDto(furniture.getDormitory()) : null);
+        return responseDto;
+    }
+
+    public FurnitureLowInfoResponseDto mapToLowInfoResponseDto(Furniture furniture) {
+        if(furniture == null) {
+            return null;
+        }
+        FurnitureLowInfoResponseDto responseDto = new FurnitureLowInfoResponseDto();
+        responseDto.setId(furniture.getId());
+        responseDto.setItemNumber(furniture.getItemNumber());
+        responseDto.setType(furniture.getType() != null ? furniture.getType() : null);
+        responseDto.setStatus(furniture.getStatus() != null ? furniture.getStatus() : null);
+        responseDto.setPrice(furniture.getPrice());
+        responseDto.setRoomNumber(furniture.getRoom() != null ? furniture.getRoom().getNumber() : null);
+        return responseDto;
+    }
 }
