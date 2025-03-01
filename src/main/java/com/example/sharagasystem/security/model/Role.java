@@ -1,5 +1,6 @@
-package com.example.sharagasystem.model;
+package com.example.sharagasystem.security.model;
 
+import com.example.sharagasystem.model.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

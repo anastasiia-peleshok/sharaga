@@ -1,6 +1,6 @@
 package com.example.sharagasystem.repository;
 
-import com.example.sharagasystem.model.Role;
+import com.example.sharagasystem.security.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

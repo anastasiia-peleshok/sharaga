@@ -1,5 +1,6 @@
-package com.example.sharagasystem.model;
+package com.example.sharagasystem.security.model;
 
+import com.example.sharagasystem.model.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 

@@ -3,7 +3,7 @@ package com.example.sharagasystem.mapper;
 import com.example.sharagasystem.dto.resident.ResidentRequestDto;
 import com.example.sharagasystem.dto.resident.ResidentResponseDto;
 import com.example.sharagasystem.model.ResidentDetails;
-import com.example.sharagasystem.model.Role;
+import com.example.sharagasystem.security.model.Role;
 import com.example.sharagasystem.config.MapperConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

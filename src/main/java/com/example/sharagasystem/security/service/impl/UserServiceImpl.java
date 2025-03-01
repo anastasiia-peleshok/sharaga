@@ -1,11 +1,11 @@
-package com.example.sharagasystem.service.impl;
+package com.example.sharagasystem.security.service.impl;
 
-import com.example.sharagasystem.model.User;
-import com.example.sharagasystem.repository.UserRepository;
+import com.example.sharagasystem.security.model.User;
+import com.example.sharagasystem.security.repository.UserRepository;
 
 import java.util.List;
 
-import com.example.sharagasystem.service.UserService;
+import com.example.sharagasystem.security.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
