@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ResidentServiceImplementation implements ResidentService {
+public class ResidentServiceImpl implements ResidentService {
     private final ResidentRepository residentRepository;
     private final ResidentMapper residentMapper;
     private final DormitoryRepository dormitoryRepository;
