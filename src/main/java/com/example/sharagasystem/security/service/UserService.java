@@ -1,4 +1,4 @@
-package com.example.sharagasystem.security;
+package com.example.sharagasystem.security.service;
 
 import com.example.sharagasystem.security.model.User;
 import java.util.List;

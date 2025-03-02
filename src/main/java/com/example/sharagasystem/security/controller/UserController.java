@@ -1,9 +1,9 @@
-package com.example.sharagasystem.security;
+package com.example.sharagasystem.security.controller;
 
 import com.example.sharagasystem.security.model.User;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+
+import com.example.sharagasystem.security.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
