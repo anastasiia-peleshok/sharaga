@@ -1,6 +1,5 @@
 package com.example.sharagasystem.service;
 
-import com.example.sharagasystem.dto.resident.ResidenUpdateDto;
 import com.example.sharagasystem.dto.resident.ResidentRequestDto;
 import com.example.sharagasystem.dto.resident.ResidentResponseDto;
 
@@ -19,5 +18,5 @@ public interface ResidentService {
 
     void deleteResidentById(UUID id);
 
-    ResidentResponseDto updateResident(UUID id, ResidenUpdateDto updatedResident);
+    ResidentResponseDto updateResident(UUID id, ResidentRequestDto updatedResident);
 }
