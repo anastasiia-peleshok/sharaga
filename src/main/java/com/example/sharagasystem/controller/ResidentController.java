@@ -19,13 +19,25 @@ public class ResidentController {
     public ResidentResponseDto getResidentById(@PathVariable UUID id) {
         return residentServiceImpl.getResidentById(id);
     }
+
     @GetMapping
     public List<ResidentResponseDto> getResidents() {
         return residentServiceImpl.getAllResidents();
     }
+
     @PostMapping
     public ResidentResponseDto addResident(@RequestBody ResidentRequestDto residentRequestDto) {
         return residentServiceImpl.saveResident(residentRequestDto);
+    }
+
+    @DeleteMapping({"/{id}"})
+    public void deleteResident(@PathVariable UUID id) {
+        residentServiceImpl.deleteResidentById(id);
+    }
+
+    @PutMapping({"/{id}"})
+    public ResidentResponseDto updateResident(@PathVariable UUID id, @RequestBody ResidentRequestDto residentRequestDto) {
+       return residentServiceImpl.updateResident(id, residentRequestDto);
     }
 
 }
