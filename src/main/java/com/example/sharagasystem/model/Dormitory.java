@@ -1,10 +1,14 @@
 package com.example.sharagasystem.model;
 
+import com.example.sharagasystem.security.model.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,10 +20,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "dorms")
 public class Dormitory extends AbstractEntity {
     private String address;
     private String name;
+    private Integer capacity;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private User commandant;
 
     @OneToMany(mappedBy = "dormitory", cascade = CascadeType.ALL)
     private List<ResidentDetails> staff;

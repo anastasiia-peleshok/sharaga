@@ -1,6 +1,7 @@
 package com.example.sharagasystem.repository;
 
 import com.example.sharagasystem.model.Dormitory;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,5 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, UUID> {
         AND d.name like :name
         """)
     Dormitory findByName(String name);
+
 }

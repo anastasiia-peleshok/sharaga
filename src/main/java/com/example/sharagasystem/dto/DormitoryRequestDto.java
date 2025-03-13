@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class DormitoryRequestDto {
-    private String dormitoryName;
-    private String dormitoryAddress;
+    private String name;
+    private String address;
+    private int capacity;
 }
