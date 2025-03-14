@@ -9,4 +9,6 @@ public interface UserService {
 
     User createUser(UserRequestDto userRequestDto);
 
+    User findByEmail(String email);
+
 }

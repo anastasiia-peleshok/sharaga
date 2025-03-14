@@ -1,20 +1,20 @@
 package com.example.sharagasystem.security.service.impl;
 
+import com.example.sharagasystem.exception.NotFoundException;
 import com.example.sharagasystem.security.dto.UserRequestDto;
-import com.example.sharagasystem.security.model.Role;
 import com.example.sharagasystem.security.model.User;
 import com.example.sharagasystem.security.repository.UserRepository;
 import com.example.sharagasystem.security.service.UserService;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -32,4 +32,13 @@ public class UserServiceImpl implements UserService {
 //        new
         return userRepository.save(newUser);
     }
+
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User with email " + email + " not found"));
+    }
+
+
 }
