@@ -27,6 +27,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+        String path = request.getServletPath();
+        if (path.startsWith("/api/v1/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
         log.info("Authorization Header: " + authHeader);
 
@@ -53,6 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 log.error("Token is not valid");
             }
         }
+
         filterChain.doFilter(request, response);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.sharagasystem.security.dto;
+package com.example.sharagasystem.security.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String token;
+    private String refreshToken;
+    private UserAuthResponse user;
 }

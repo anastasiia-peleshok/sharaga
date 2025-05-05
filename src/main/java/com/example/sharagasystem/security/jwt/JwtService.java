@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class JwtService {
 
     @Value("${secret.key}")
-    private static String SECRET_KEY;
+    private String SECRET_KEY;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -51,7 +51,7 @@ public class JwtService {
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -69,6 +69,9 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
+        if (SECRET_KEY == null || SECRET_KEY.isEmpty()) {
+            throw new IllegalArgumentException("JWT Secret Key cannot be null or empty");
+        }
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

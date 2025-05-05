@@ -1,18 +1,19 @@
-package com.example.sharagasystem.security.dto;
+package com.example.sharagasystem.security.dto.request;
 
+import com.example.sharagasystem.security.model.Role;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationRequest {
-
+public class UserRequestDto {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private Role role;
 }

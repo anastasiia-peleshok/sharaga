@@ -42,7 +42,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Role role;
     private String firstName;
     private String lastName;
-    private boolean active;
+//    private boolean active = true;
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

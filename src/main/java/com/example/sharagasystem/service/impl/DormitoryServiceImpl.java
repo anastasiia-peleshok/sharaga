@@ -5,6 +5,7 @@ import com.example.sharagasystem.model.Dormitory;
 import com.example.sharagasystem.repository.DormitoryRepository;
 import com.example.sharagasystem.service.DormitoryService;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,11 @@ public class DormitoryServiceImpl implements DormitoryService {
     @Transactional
     public Dormitory getByName(String name) {
         return dormitoryRepository.findByName(name);
+    }
+
+    @Override
+    public List<Dormitory> findAll() {
+        return dormitoryRepository.findAll();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.example.sharagasystem.security.service.impl;
 
 import com.example.sharagasystem.exception.NotFoundException;
-import com.example.sharagasystem.security.dto.UserRequestDto;
+import com.example.sharagasystem.security.dto.request.UserRequestDto;
 import com.example.sharagasystem.security.model.User;
 import com.example.sharagasystem.security.repository.UserRepository;
 import com.example.sharagasystem.security.service.UserService;

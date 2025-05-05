@@ -1,4 +1,4 @@
-package com.example.sharagasystem.security.dto;
+package com.example.sharagasystem.security.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
