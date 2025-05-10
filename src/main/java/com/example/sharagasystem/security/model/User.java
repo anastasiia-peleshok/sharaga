@@ -9,6 +9,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -42,6 +43,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Role role;
     private String firstName;
     private String lastName;
+    private LocalDate birthday;
 //    private boolean active = true;
     @CreationTimestamp
     @Column(updatable = false)

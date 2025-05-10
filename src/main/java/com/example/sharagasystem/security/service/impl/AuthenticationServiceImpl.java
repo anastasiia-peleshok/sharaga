@@ -33,6 +33,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final UserMapper userMapper;
 
+
+    //TODO добавити створення residentDetails i staffDetails для їхнього подальшого входу
     @Override
     public AuthenticationResponse register(RegistrationRequest request) {
         User user = new User();
@@ -47,24 +49,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(userMapper.mapToUserAuthResponse(savedUser))
                 .build();
     }
 
     @Override
     public AuthenticationResponse refresh(RefreshTokenRequest request) {
-        if(!jwtService.isTokenExpired(request.getRefreshToken())) {
-            throw new TokenIsNotValidException("Refresh token is not valid");
+        if (jwtService.isTokenExpired(request.getRefreshToken())) {
+            throw new TokenIsNotValidException("Refresh token is expired");
         }
+
         String email = jwtService.extractUsername(request.getRefreshToken());
         User user = userService.findByEmail(email);
+
         String newAccessToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(newAccessToken)
-                .refreshToken(request.getRefreshToken())
+                .refreshToken(request.getRefreshToken()) // можна згенерувати новий, якщо хочеш
                 .user(userMapper.mapToUserAuthResponse(user))
                 .build();
     }
@@ -85,8 +90,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(user.getRole().getRoleName())
                 .build();
 
+        String refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .refreshToken(refreshToken)
                 .user(userAuthResponse)
                 .build();
     }

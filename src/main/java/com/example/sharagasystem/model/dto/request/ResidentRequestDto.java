@@ -1,4 +1,4 @@
-package com.example.sharagasystem.dto;
+package com.example.sharagasystem.model.dto.request;
 
 import com.example.sharagasystem.security.model.Role;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class ResidentRequestDto {
 //    @Nullable
     private String email;
 //    @Nullable
-    private String role;
+    private Role.RoleName role;
 //    @Nullable
     private String phoneNumber;
 //    @Nullable

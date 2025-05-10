@@ -1,7 +1,6 @@
-package com.example.sharagasystem.dto;
+package com.example.sharagasystem.model.dto.request;
 
 import com.example.sharagasystem.model.Gender;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +15,5 @@ public class RoomRequestDto {
     // TODO: add this when be some data
 //    private UUID dormitoryId;
 
-    private String nameDormitory;
+//    private String nameDormitory;
 }

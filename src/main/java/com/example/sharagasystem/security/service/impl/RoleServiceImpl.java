@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
+
     @Override
     public Role findByName(Role.RoleName name) {
+
         return roleRepository.findByName(name)
                 .orElseThrow(() -> new NotFoundException("Role with name " + name + " not found"));
     }
