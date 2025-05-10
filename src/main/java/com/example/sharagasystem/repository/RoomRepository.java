@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface RoomRepository extends JpaRepository<Room, UUID> {
     public Optional<Room> findByNumber(String number);
 
+
     @Query("""
             SELECT r
             FROM Room r

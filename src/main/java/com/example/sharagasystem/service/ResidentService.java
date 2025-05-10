@@ -23,10 +23,16 @@ public interface ResidentService {
     // Get a resident by ID
     ResidentResponseDto getResidentById(UUID id);
 
+    // Get a resident by a unique field, e.g., email
     ResidentResponseDto getResidentByEmail(String email);
 
+    // Delete a resident by ID
     void deleteResidentById(UUID id);
 
+//    // Check if a resident exists by email (for unique constraint checks)
+//    boolean existsByEmail(String email);
+
+    // Update resident details
     ResidentResponseDto updateResident(UUID id, ResidentRequestDto updatedResident);
 
     Page<ResidentDetailsLowInfoResponseDto> getResidentsByDormitory(UUID dormitoryId, String textToSearch, Pageable pageable);

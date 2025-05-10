@@ -11,8 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -33,5 +31,15 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("ivan")
+                .password("{noop}qwerty") // {noop} means no encoding for testing
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
     }
 }
