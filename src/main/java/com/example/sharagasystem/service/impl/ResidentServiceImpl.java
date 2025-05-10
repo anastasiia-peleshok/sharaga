@@ -93,8 +93,8 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public void deleteResidentById(UUID id) {
-        if(residentRepository.findById(id).isPresent()){
-           residentRepository.delete(residentRepository.findById(id).get());
+        if (residentRepository.findById(id).isPresent()) {
+            residentRepository.delete(residentRepository.findById(id).get());
         }
         throw new IllegalArgumentException("Resident not found");
     }
