@@ -1,7 +1,5 @@
 package com.example.sharagasystem.mapper;
 
-import com.example.sharagasystem.dto.room.RoomRequestDto;
-import com.example.sharagasystem.dto.room.RoomResponseDto;
 import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.response.RoomListResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomLowInfoResponseDto;

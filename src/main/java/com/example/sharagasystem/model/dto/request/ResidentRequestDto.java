@@ -1,6 +1,9 @@
 package com.example.sharagasystem.model.dto.request;
 
 import com.example.sharagasystem.security.model.Role;
+import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +25,10 @@ public class ResidentRequestDto {
     private Role.RoleName role;
 //    @Nullable
     private String phoneNumber;
+    private LocalDate birthday;
 //    @Nullable
     private String roomNumber;
-//    @Nullable
-    private String dormitoryName;
+    @NotNull
+    private UUID dormitoryId;
 
 }

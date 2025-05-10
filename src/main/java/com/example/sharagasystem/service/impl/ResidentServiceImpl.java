@@ -4,6 +4,7 @@ import com.example.sharagasystem.exception.NotFoundException;
 import com.example.sharagasystem.mapper.ResidentDetailsMapper;
 import com.example.sharagasystem.model.Dormitory;
 import com.example.sharagasystem.model.ResidentDetails;
+import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.ResidentRequestDto;
 import com.example.sharagasystem.model.dto.response.ResidentDetailsLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.ResidentResponseDto;
@@ -12,6 +13,7 @@ import com.example.sharagasystem.security.model.Role;
 import com.example.sharagasystem.security.service.RoleService;
 import com.example.sharagasystem.service.DormitoryService;
 import com.example.sharagasystem.service.ResidentService;
+import com.example.sharagasystem.service.RoomService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,7 @@ public class ResidentServiceImpl implements ResidentService {
     private final DormitoryService dormitoryService;
     private final RoleService roleService;
     private final ResidentDetailsMapper residentDetailsMapper;
+    private final RoomService roomService;
 
     private final ModelMapper modelMapper;
 
@@ -48,10 +51,14 @@ public class ResidentServiceImpl implements ResidentService {
         residentDetails.setLastName(residentRequestDto.getLastName());
         residentDetails.setEmail(residentRequestDto.getEmail());
         residentDetails.setPhoneNumber(residentRequestDto.getPhoneNumber());
+        residentDetails.setBirthday(residentRequestDto.getBirthday());
 
         Role byName = roleService.findByName(residentRequestDto.getRole());
         residentDetails.setRole(byName);
+
         ResidentDetails savedUser = residentRepository.save(residentDetails);
+        addResidentToDormitory(savedUser.getId(), residentRequestDto.getDormitoryId());
+
         return toDTO(savedUser);
     }
 
@@ -62,6 +69,24 @@ public class ResidentServiceImpl implements ResidentService {
         ResidentDetails residentDetails = findById(residentId);
         residentDetails.setDormitory(dormitory);
         dormitory.getResidents().add(residentDetails);
+    }
+
+    @Override
+    @Transactional
+    public void assignToRoom(UUID residentId, UUID roomId) {
+        ResidentDetails residentDetails = findById(residentId);
+        Room room = roomService.findById(roomId);
+        room.getResidents().add(residentDetails);
+        residentDetails.setRoom(room);
+    }
+
+    @Transactional
+    public void assignToRoomByNumber(String numberRoom, UUID residentId) {
+        ResidentDetails residentDetails = findById(residentId);
+        Room room = roomService.findByNumber(numberRoom, residentDetails.getDormitory().getId());
+        room.getResidents().add(residentDetails);
+        residentDetails.setRoom(room);
+
     }
 
     public ResidentDetails findById(UUID residentId) {

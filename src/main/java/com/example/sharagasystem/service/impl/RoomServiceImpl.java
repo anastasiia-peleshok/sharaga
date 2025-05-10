@@ -10,6 +10,7 @@ import com.example.sharagasystem.repository.RoomRepository;
 import com.example.sharagasystem.service.DormitoryService;
 import com.example.sharagasystem.service.RoomService;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,6 +48,20 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Room not found with id: " + id)
         );
+    }
+
+    @Override
+    @Transactional
+    public Room findByNumber(String number, UUID dormitoryId) {
+        Dormitory dormitory = dormitoryService.findById(dormitoryId);
+        return roomRepository.findByNumberAndDormitory(number, dormitory);
+    }
+
+    @Override
+    @Transactional
+    public List<Room> findAllWithFreePlaces(UUID dormitoryId) {
+        Dormitory dormitory = dormitoryService.findById(dormitoryId);
+        return roomRepository.findAllWithFreePlaces(dormitory);
     }
 
     @Override

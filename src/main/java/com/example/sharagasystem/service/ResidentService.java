@@ -1,10 +1,5 @@
 package com.example.sharagasystem.service;
 
-import com.example.sharagasystem.dto.ResidentRequestDto;
-import com.example.sharagasystem.dto.ResidentResponseDto;
-import com.example.sharagasystem.dto.resident.ResidenUpdateDto;
-import com.example.sharagasystem.dto.resident.ResidentRequestDto;
-import com.example.sharagasystem.dto.resident.ResidentResponseDto;
 
 import com.example.sharagasystem.model.dto.request.ResidentRequestDto;
 import com.example.sharagasystem.model.dto.response.ResidentDetailsLowInfoResponseDto;
@@ -22,6 +17,8 @@ public interface ResidentService {
 
     // Get all residents
     List<ResidentResponseDto> getAllResidents();
+
+    void assignToRoom(UUID residentId, UUID roomId);
 
     // Get a resident by ID
     ResidentResponseDto getResidentById(UUID id);

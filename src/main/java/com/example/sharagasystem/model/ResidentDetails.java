@@ -25,6 +25,8 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class ResidentDetails extends User {
     private LocalDate dateOfEntry;
+    private Double debt;
+    private Double penaltyPoints;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Furniture> furnitureList;

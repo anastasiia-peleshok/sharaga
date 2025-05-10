@@ -48,7 +48,7 @@ public class ResidentController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ResidentResponseDto> assignResidentToDormitory(@RequestBody ResidentRequestDto residentRequestDto) {
+    public ResponseEntity<ResidentResponseDto> createResident(@RequestBody ResidentRequestDto residentRequestDto) {
         return ResponseEntity.ok(residentService.saveResident(residentRequestDto));
     }
 
