@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -36,4 +37,7 @@ public class ResidentDetails extends User {
 
     @ManyToOne
     private Dormitory dormitory;
+
+    @OneToMany
+    List<Payment> payments = new ArrayList<>();
 }

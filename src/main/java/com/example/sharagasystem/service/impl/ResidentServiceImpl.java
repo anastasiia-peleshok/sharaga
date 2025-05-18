@@ -97,7 +97,7 @@ public class ResidentServiceImpl implements ResidentService {
         residentDetails.setRoom(room);
         roomService.calculateFreePlaces(room);
     }
-
+    @Override
     public ResidentDetails findById(UUID residentId) {
         return residentRepository.findById(residentId).orElseThrow(
                 () -> new NotFoundException("Resident not found with id: " + residentId)

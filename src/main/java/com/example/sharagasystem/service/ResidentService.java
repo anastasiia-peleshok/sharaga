@@ -1,6 +1,7 @@
 package com.example.sharagasystem.service;
 
 
+import com.example.sharagasystem.model.ResidentDetails;
 import com.example.sharagasystem.model.dto.request.ResidentRequestDto;
 import com.example.sharagasystem.model.dto.response.ResidentDetailsLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.ResidentResponseDto;
@@ -25,6 +26,9 @@ public interface ResidentService {
 
     // Get a resident by a unique field, e.g., email
     ResidentResponseDto getResidentByEmail(String email);
+
+    // Find resident
+    ResidentDetails findById(UUID residentId);
 
     // Delete a resident by ID
     void deleteResidentById(UUID id);
