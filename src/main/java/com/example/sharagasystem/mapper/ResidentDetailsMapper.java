@@ -17,6 +17,8 @@ public class ResidentDetailsMapper {
         residentResponseDto.setLastName(residentDetails.getLastName());
         residentResponseDto.setRoom(residentDetails.getRoom() != null ? residentDetails.getRoom().getNumber() : null);
         residentResponseDto.setYearsInUniversity(countYearsInUniversity(residentDetails));
+        residentResponseDto.setDebt(residentDetails.getDebt());
+        residentResponseDto.setPenaltyPoints(residentDetails.getPenaltyPoints());
         return residentResponseDto;
     }
 

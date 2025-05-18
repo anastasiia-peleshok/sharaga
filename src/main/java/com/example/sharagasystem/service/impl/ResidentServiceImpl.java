@@ -51,13 +51,21 @@ public class ResidentServiceImpl implements ResidentService {
         residentDetails.setLastName(residentRequestDto.getLastName());
         residentDetails.setEmail(residentRequestDto.getEmail());
         residentDetails.setPhoneNumber(residentRequestDto.getPhoneNumber());
-        residentDetails.setBirthday(residentRequestDto.getBirthday());
+        residentDetails.setDateOfBirth(residentRequestDto.getBirthday());
+        residentDetails.setDateOfEntry(residentRequestDto.getDateOfEntry());
+        residentDetails.setDebt(residentRequestDto.getDebt());
+        residentDetails.setPenaltyPoints(residentRequestDto.getPenaltyPoints());
 
-        Role byName = roleService.findByName(residentRequestDto.getRole());
+
+        Role byName = roleService.findByName(Role.RoleName.RESIDENT);
         residentDetails.setRole(byName);
 
         ResidentDetails savedUser = residentRepository.save(residentDetails);
         addResidentToDormitory(savedUser.getId(), residentRequestDto.getDormitoryId());
+
+        if(residentRequestDto.getRoomNumber() != null) {
+            assignToRoomByNumber(residentRequestDto.getRoomNumber(), savedUser.getId());
+        }
 
         return toDTO(savedUser);
     }
@@ -78,6 +86,7 @@ public class ResidentServiceImpl implements ResidentService {
         Room room = roomService.findById(roomId);
         room.getResidents().add(residentDetails);
         residentDetails.setRoom(room);
+        roomService.calculateFreePlaces(room);
     }
 
     @Transactional
@@ -86,7 +95,7 @@ public class ResidentServiceImpl implements ResidentService {
         Room room = roomService.findByNumber(numberRoom, residentDetails.getDormitory().getId());
         room.getResidents().add(residentDetails);
         residentDetails.setRoom(room);
-
+        roomService.calculateFreePlaces(room);
     }
 
     public ResidentDetails findById(UUID residentId) {
@@ -158,5 +167,22 @@ public class ResidentServiceImpl implements ResidentService {
                 textToSearch != null ? textToSearch : "",
                 pageable);
         return allByDormitory.map(residentDetailsMapper::mapToResidentDetailsLowInfoResponseDto);
+    }
+
+    @Override
+    @Transactional
+    public void roomResettlement(UUID roomId, UUID residentId) {
+        ResidentDetails residentDetails = findById(residentId);
+        Room room = roomService.findById(roomId);
+
+        Room oldRoom = residentDetails.getRoom();
+        if (oldRoom != null) {
+            oldRoom.getResidents().remove(residentDetails);
+            roomService.calculateFreePlaces(oldRoom);
+        }
+
+        room.getResidents().add(residentDetails);
+        residentDetails.setRoom(room);
+        roomService.calculateFreePlaces(room);
     }
 }

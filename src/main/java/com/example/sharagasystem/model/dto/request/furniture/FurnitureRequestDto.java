@@ -4,6 +4,7 @@ import com.example.sharagasystem.model.FurnitureType;
 import com.example.sharagasystem.model.enums.StatusType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,6 @@ public class FurnitureRequestDto {
     @NotNull(message = "cannot be null")
     private StatusType status;
     private Double price;
+
+    private UUID dormitoryId;
 }

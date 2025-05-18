@@ -18,4 +18,6 @@ public class ResidentDetailsLowInfoResponseDto {
     private String lastName;
     private String room;
     private Integer yearsInUniversity;
+    private Double debt;
+    private Double penaltyPoints;
 }

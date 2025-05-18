@@ -7,6 +7,7 @@ import com.example.sharagasystem.service.ResidentService;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/residents")
@@ -56,6 +58,15 @@ public class ResidentController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public void addResidentToDormitory(@PathVariable UUID residentId,
                                        @PathVariable UUID dormitoryId) {
+        log.info("Entering PATCH /residents/{residentId}/dormitory/{dormitoryId}", residentId, dormitoryId);
         residentService.addResidentToDormitory(residentId, dormitoryId);
+    }
+
+    @PatchMapping("/room/{roomId}/resident/{residentId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public void roomResettlement(@PathVariable UUID roomId,
+                                 @PathVariable UUID residentId) {
+        log.info("Entering PATCH /residents/room/{roomId}/resident/{residentId}", roomId, residentId);
+        residentService.roomResettlement(roomId, residentId);
     }
 }

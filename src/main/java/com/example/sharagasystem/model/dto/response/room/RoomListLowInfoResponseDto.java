@@ -1,5 +1,6 @@
-package com.example.sharagasystem.model.dto.response;
+package com.example.sharagasystem.model.dto.response.room;
 
+import com.example.sharagasystem.model.Gender;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,11 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RoomListResponseDto {
+public class RoomListLowInfoResponseDto {
     private UUID id;
     private String number;
-    private Integer capacity;
-    private String gender;
-    private Integer freeSeats;
-    private Integer occupiedSeats;
+    private Gender gender;
+    private Integer free;
 }

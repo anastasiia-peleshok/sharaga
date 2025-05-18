@@ -34,6 +34,7 @@ public class FurnitureServiceImpl implements FurnitureService {
         furniture.setStatus(furnitureRequestDto.getStatus());
         furniture.setPrice(furnitureRequestDto.getPrice());
         Furniture savedFurniture = furnitureRepository.save(furniture);
+        assignFurnitureToDormitory(savedFurniture.getId(), furnitureRequestDto.getDormitoryId());
         return furnitureMapper.mapToResponse(savedFurniture);
     }
 

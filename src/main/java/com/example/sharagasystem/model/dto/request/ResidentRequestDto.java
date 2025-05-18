@@ -1,6 +1,7 @@
 package com.example.sharagasystem.model.dto.request;
 
 import com.example.sharagasystem.security.model.Role;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -25,7 +26,15 @@ public class ResidentRequestDto {
     private Role.RoleName role;
 //    @Nullable
     private String phoneNumber;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfEntry;
+
+    private Double debt;
+
+    private Double penaltyPoints;
 //    @Nullable
     private String roomNumber;
     @NotNull

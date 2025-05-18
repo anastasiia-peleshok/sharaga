@@ -1,7 +1,8 @@
 package com.example.sharagasystem.mapper;
 
 import com.example.sharagasystem.model.Room;
-import com.example.sharagasystem.model.dto.response.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomLowInfoResponseDto;
 import org.springframework.stereotype.Component;
 
@@ -12,21 +13,13 @@ public class RoomMapper {
         if(room == null) {
             return null;
         }
-        int occupiedSeats;
-
-        if(room.getResidents() == null || room.getResidents().isEmpty()) {
-            occupiedSeats = 0;
-        } else {
-            occupiedSeats = room.getResidents().size();
-        }
-
         RoomListResponseDto responseDto = new RoomListResponseDto();
         responseDto.setId(room.getId());
         responseDto.setNumber(room.getNumber());
         responseDto.setCapacity(room.getCapacity());
-        responseDto.setGender(room.getGender().getName());
-        responseDto.setFreeSeats(countFreeSeats(occupiedSeats, room.getCapacity()));
-        responseDto.setOccupiedSeats(occupiedSeats);
+        responseDto.setType(room.getGender().name());
+        responseDto.setFreeSeats(room.getFree());
+        responseDto.setOccupiedSeats(room.getOccupied());
         return responseDto;
     }
 
@@ -40,7 +33,15 @@ public class RoomMapper {
         return responseDto;
     }
 
-    private Integer countFreeSeats(int occupiedSeats, int capacity) {
-        return capacity - occupiedSeats;
+    public RoomListLowInfoResponseDto mapToRoomListLowInfoResponseDto(Room room) {
+        if(room == null) {
+            return null;
+        }
+        RoomListLowInfoResponseDto responseDto = new RoomListLowInfoResponseDto();
+        responseDto.setId(room.getId());
+        responseDto.setNumber(room.getNumber());
+        responseDto.setGender(room.getGender());
+        responseDto.setFree(room.getFree());
+        return responseDto;
     }
 }

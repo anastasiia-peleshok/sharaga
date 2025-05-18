@@ -1,8 +1,8 @@
 package com.example.sharagasystem.repository;
 
 import com.example.sharagasystem.model.Dormitory;
+import com.example.sharagasystem.model.Gender;
 import com.example.sharagasystem.model.Room;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -25,6 +25,7 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             AND (
                       LOWER(r.number) LIKE CONCAT('%', LOWER(:textToSearch), '%')
                   )
+            ORDER BY r.createdAt DESC
             """)
     Page<Room> findAllByDormitory(@Param("dormitory") Dormitory dormitory,
                                   @Param("textToSearch") String textToSearch,
@@ -45,7 +46,14 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             FROM Room r
             WHERE r.deletedAt IS NULL
             AND r.dormitory = :dormitory
+            AND r.gender = :gender
+            AND (
+                      LOWER(r.number) LIKE CONCAT('%', LOWER(:textToSearch), '%')
+                  )
             AND r.free > 0
             """)
-    List<Room> findAllWithFreePlaces(Dormitory dormitory);
+    Page<Room> findAllWithFreePlaces(@Param("dormitory") Dormitory dormitory,
+                                     @Param("gender") Gender gender,
+                                     @Param("textToSearch") String textToSearch,
+                                     Pageable pageable);
 }

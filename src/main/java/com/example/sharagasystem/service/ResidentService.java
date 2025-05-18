@@ -36,4 +36,6 @@ public interface ResidentService {
     ResidentResponseDto updateResident(UUID id, ResidentRequestDto updatedResident);
 
     Page<ResidentDetailsLowInfoResponseDto> getResidentsByDormitory(UUID dormitoryId, String textToSearch, Pageable pageable);
+
+    void roomResettlement(UUID roomId, UUID residentId);
 }

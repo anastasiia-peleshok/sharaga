@@ -43,7 +43,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Role role;
     private String firstName;
     private String lastName;
-    private LocalDate birthday;
+    private LocalDate dateOfBirth;
 //    private boolean active = true;
     @CreationTimestamp
     @Column(updatable = false)
@@ -83,6 +83,10 @@ public class User extends AbstractEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    public Role getRole() {
+        return role;
     }
 
 //    private List<Notfication> notfications = new ArrayList<>();

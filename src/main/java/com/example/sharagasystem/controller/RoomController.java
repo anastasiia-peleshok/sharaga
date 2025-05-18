@@ -1,8 +1,10 @@
 package com.example.sharagasystem.controller;
 
+import com.example.sharagasystem.model.Gender;
 import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.RoomRequestDto;
-import com.example.sharagasystem.model.dto.response.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
 import com.example.sharagasystem.service.RoomService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +50,17 @@ public class RoomController {
     public Page<RoomListResponseDto> findAllByDormitory(@PathVariable UUID dormitoryId,
                                                         @RequestParam(required = false, defaultValue = "") String textToSearch,
                                                         Pageable pageable){
-        log.info("Entering POST /rooms/dormitory/{} with dormitory id {}", dormitoryId);
+        log.info("Entering GET /rooms/dormitory/{} with dormitory id {}", dormitoryId);
         return roomService.findAllByDormitory(dormitoryId, textToSearch, pageable);
+    }
+
+    @GetMapping("/dormitory/{dormitoryId}/gender")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public Page<RoomListLowInfoResponseDto> findAllByGender(@PathVariable UUID dormitoryId,
+                                                            @RequestParam Gender gender,
+                                                            @RequestParam(required = false, defaultValue = "") String textToSearch,
+                                                             Pageable pageable){
+        log.info("Entering POST /rooms/dormitory/{dormitoryId}/gender with dormitory id {}", dormitoryId);
+        return roomService.findAllWithFreePlaces(dormitoryId, gender, textToSearch, pageable);
     }
 }

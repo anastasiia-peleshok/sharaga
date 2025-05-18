@@ -33,13 +33,5 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("ivan")
-                .password("{noop}qwerty") // {noop} means no encoding for testing
-                .roles("ADMIN")
-                .build();
 
-        return new InMemoryUserDetailsManager(user);
-    }
 }

@@ -3,20 +3,23 @@ package com.example.sharagasystem.service.impl;
 import com.example.sharagasystem.exception.NotFoundException;
 import com.example.sharagasystem.mapper.RoomMapper;
 import com.example.sharagasystem.model.Dormitory;
+import com.example.sharagasystem.model.Gender;
 import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.RoomRequestDto;
-import com.example.sharagasystem.model.dto.response.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
 import com.example.sharagasystem.repository.RoomRepository;
 import com.example.sharagasystem.service.DormitoryService;
 import com.example.sharagasystem.service.RoomService;
 import jakarta.transaction.Transactional;
-import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
@@ -25,13 +28,16 @@ public class RoomServiceImpl implements RoomService {
     private final RoomMapper roomMapper;
 
     @Override
+    @Transactional
     public Room create(RoomRequestDto roomRequestDto) {
         Room newRoom = new Room();
         newRoom.setNumber(roomRequestDto.getRoomNumber());
         newRoom.setCapacity(roomRequestDto.getCapacity());
         newRoom.setGender(roomRequestDto.getGender());
-//        newRoom.setDormitory(dormitoryService.getByName(roomRequestDto.getNameDormitory()));
-        return roomRepository.save(newRoom);
+        calculateFreePlaces(newRoom);
+        Room savedRoom = roomRepository.save(newRoom);
+        assignRoomToDormitory(savedRoom.getId(), roomRequestDto.getDormitoryId());
+        return savedRoom;
     }
 
     @Override
@@ -59,9 +65,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     @Transactional
-    public List<Room> findAllWithFreePlaces(UUID dormitoryId) {
+    public Page<RoomListLowInfoResponseDto> findAllWithFreePlaces(UUID dormitoryId, Gender gender, String textToSearch, Pageable pageable) {
         Dormitory dormitory = dormitoryService.findById(dormitoryId);
-        return roomRepository.findAllWithFreePlaces(dormitory);
+        Page<Room> allWithFreePlaces = roomRepository.findAllWithFreePlaces(dormitory, gender, textToSearch, pageable);
+        return allWithFreePlaces.map(roomMapper::mapToRoomListLowInfoResponseDto);
     }
 
     @Override
@@ -72,4 +79,26 @@ public class RoomServiceImpl implements RoomService {
         room.setDormitory(dormitory);
         dormitory.getRooms().add(room);
     }
+
+    @Transactional
+    @Override
+    public void calculateFreePlaces(Room room) {
+        if(room != null) {
+            log.warn("Room is null | Cannot calculate free places ");
+        }
+        int occupiedSeats;
+
+        if(room.getResidents() == null || room.getResidents().isEmpty()) {
+            occupiedSeats = 0;
+        } else {
+            occupiedSeats = room.getResidents().size();
+        }
+        room.setFree(countFreeSeats(occupiedSeats, room.getCapacity()));
+        room.setOccupied(occupiedSeats);
+    }
+
+    private Integer countFreeSeats(int occupiedSeats, int capacity) {
+        return capacity - occupiedSeats;
+    }
+
 }
