@@ -17,7 +17,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             NotFoundException.class,
-            AuthenticationException.class
+            AuthenticationException.class,
+            NameAlreadyTakenException.class,
+            FastException.class,
     })
     public ResponseEntity<Object> handleNotFoundException(
             final RuntimeException e, HttpServletRequest request
