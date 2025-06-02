@@ -1,6 +1,10 @@
 package com.example.sharagasystem.security.service.impl;
 
 import com.example.sharagasystem.exception.AuthenticationException;
+import com.example.sharagasystem.model.Dormitory;
+import com.example.sharagasystem.model.ResidentDetails;
+import com.example.sharagasystem.model.Room;
+import com.example.sharagasystem.model.dto.excel.ExcelImportResidentDto;
 import com.example.sharagasystem.security.dto.request.AuthenticationRequest;
 import com.example.sharagasystem.security.dto.request.RefreshTokenRequest;
 import com.example.sharagasystem.security.dto.request.RegistrationRequest;
@@ -15,6 +19,9 @@ import com.example.sharagasystem.security.repository.RoleRepository;
 import com.example.sharagasystem.security.repository.UserRepository;
 import com.example.sharagasystem.security.service.AuthenticationService;
 import com.example.sharagasystem.security.service.UserService;
+import com.example.sharagasystem.service.ResidentService;
+import com.example.sharagasystem.service.RoomService;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,13 +39,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final RoomService roomService;
+    private final ResidentService residentService;
 
 
     //TODO добавити створення residentDetails i staffDetails для їхнього подальшого входу
     @Override
     public AuthenticationResponse register(RegistrationRequest request) {
         User user = new User();
-        final Optional<User> userFromDb = userRepository.findByEmail(request.getEmail());
+        Optional<User> userFromDb = userRepository.findByEmail(request.getEmail());
         //&& userFromDb.get().isActive()
         if(userFromDb.isPresent()) {
             throw new AuthenticationException("This email has already been used before");
@@ -55,6 +64,37 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .token(jwtToken)
                 .user(userMapper.mapToUserAuthResponse(savedUser))
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public ResidentDetails registerResidentByExcel(ExcelImportResidentDto request, Dormitory dormitory) {
+        ResidentDetails residentDetails = new ResidentDetails();
+        Optional<User> userFromDb = userRepository.findByEmail(request.getEmail());
+        if(userFromDb.isPresent()) {
+            throw new AuthenticationException("This email has already been used before");
+        }
+        residentDetails.setRole(roleRepository.findByName(Role.RoleName.RESIDENT)
+                .orElseThrow(() -> new AuthenticationException("Role Not Found")));
+        residentDetails.setFirstName(request.getFirstName());
+        residentDetails.setLastName(request.getLastName());
+        residentDetails.setPassword(passwordEncoder.encode(request.getPassword()));
+        residentDetails.setEmail(request.getEmail());
+        residentDetails.setDateOfBirth(request.getBirthDate());
+        residentDetails.setPhoneNumber(request.getPhone());
+        residentDetails.setDateOfEntry(request.getDateOfEntry());
+
+        Room byNumber = roomService.findByNumber(request.getRoomNumber(), dormitory.getId());
+        if(byNumber != null) {
+            if(byNumber.getFree() > 0) {
+                byNumber.getResidents().add(residentDetails);
+                residentDetails.setRoom(byNumber);
+            }
+        }
+        roomService.calculateFreePlaces(byNumber);
+        residentDetails.setDormitory(dormitory);
+        dormitory.getResidents().add(residentDetails);
+        return residentDetails;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.example.sharagasystem.security.service;
 
+import com.example.sharagasystem.model.Dormitory;
+import com.example.sharagasystem.model.ResidentDetails;
+import com.example.sharagasystem.model.dto.excel.ExcelImportResidentDto;
 import com.example.sharagasystem.security.dto.request.AuthenticationRequest;
 import com.example.sharagasystem.security.dto.request.RefreshTokenRequest;
 import com.example.sharagasystem.security.dto.request.RegistrationRequest;
@@ -12,4 +15,6 @@ public interface AuthenticationService {
     AuthenticationResponse authenticate(AuthenticationRequest request);
 
     AuthenticationResponse refresh(RefreshTokenRequest request);
+
+    ResidentDetails registerResidentByExcel(ExcelImportResidentDto request, Dormitory dormitory);
 }

@@ -1,6 +1,7 @@
 package com.example.sharagasystem.service;
 
 
+import com.example.sharagasystem.model.ResidentDetails;
 import com.example.sharagasystem.model.dto.request.ResidentRequestDto;
 import com.example.sharagasystem.model.dto.response.ResidentDetailsLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.ResidentResponseDto;
@@ -15,6 +16,7 @@ public interface ResidentService {
 
     void addResidentToDormitory(UUID residentId, UUID dormitoryId);
 
+    ResidentDetails save(ResidentDetails residentDetails);
     // Get all residents
     List<ResidentResponseDto> getAllResidents();
 
@@ -38,4 +40,6 @@ public interface ResidentService {
     Page<ResidentDetailsLowInfoResponseDto> getResidentsByDormitory(UUID dormitoryId, String textToSearch, Pageable pageable);
 
     void roomResettlement(UUID roomId, UUID residentId);
+
+    List<ResidentDetails> saveAll(List<ResidentDetails> residentDetails);
 }

@@ -44,7 +44,7 @@ public class User extends AbstractEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-//    private boolean active = true;
+    private boolean active = true;
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

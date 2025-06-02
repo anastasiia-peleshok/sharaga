@@ -6,6 +6,7 @@ import com.example.sharagasystem.security.model.User;
 import com.example.sharagasystem.security.repository.UserRepository;
 import com.example.sharagasystem.security.service.UserService;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User with email " + email + " not found"));
+    }
+
+    @Override
+    public Optional<User> findByEmailUser(String email) {
+        return userRepository.findByEmail(email);
     }
 
 

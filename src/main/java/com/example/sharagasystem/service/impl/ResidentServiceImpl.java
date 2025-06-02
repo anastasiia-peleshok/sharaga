@@ -49,13 +49,15 @@ public class ResidentServiceImpl implements ResidentService {
         ResidentDetails residentDetails = new ResidentDetails();
         residentDetails.setFirstName(residentRequestDto.getFirstName());
         residentDetails.setLastName(residentRequestDto.getLastName());
+        if (residentRequestDto.getEmail() == null || residentRequestDto.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Email не може бути порожнім");
+        }
         residentDetails.setEmail(residentRequestDto.getEmail());
         residentDetails.setPhoneNumber(residentRequestDto.getPhoneNumber());
         residentDetails.setDateOfBirth(residentRequestDto.getBirthday());
         residentDetails.setDateOfEntry(residentRequestDto.getDateOfEntry());
         residentDetails.setDebt(residentRequestDto.getDebt());
         residentDetails.setPenaltyPoints(residentRequestDto.getPenaltyPoints());
-
 
         Role byName = roleService.findByName(Role.RoleName.RESIDENT);
         residentDetails.setRole(byName);
@@ -68,6 +70,11 @@ public class ResidentServiceImpl implements ResidentService {
         }
 
         return toDTO(savedUser);
+    }
+
+    @Override
+    public ResidentDetails save(ResidentDetails residentDetails) {
+        return residentRepository.save(residentDetails);
     }
 
     @Override
@@ -184,5 +191,10 @@ public class ResidentServiceImpl implements ResidentService {
         room.getResidents().add(residentDetails);
         residentDetails.setRoom(room);
         roomService.calculateFreePlaces(room);
+    }
+
+    @Override
+    public List<ResidentDetails> saveAll(List<ResidentDetails> residentDetails) {
+        return residentRepository.saveAll(residentDetails);
     }
 }
