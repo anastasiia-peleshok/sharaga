@@ -27,6 +27,6 @@ public class StaffDetails extends User {
     @ManyToMany
     private List<Dormitory> dormitory;
 
-//    @ManyToMany
-//    private List<CalendarItem> calendarItems;
+    @ManyToMany
+    private List<CalendarItem> calendarItems;
 }

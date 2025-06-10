@@ -5,6 +5,7 @@ import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.RoomRequestDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomResponseDto;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,8 @@ public interface RoomService {
     Page<RoomListResponseDto> findAllByDormitory(UUID dormitoryId, String textToSearch, Pageable pageable);
 
     Room findById(UUID id);
+
+    RoomResponseDto getById(UUID id);
 
     Room findByNumber(String number, UUID dormitoryId);
 

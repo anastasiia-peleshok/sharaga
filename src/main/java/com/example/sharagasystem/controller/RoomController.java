@@ -5,6 +5,7 @@ import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.RoomRequestDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomResponseDto;
 import com.example.sharagasystem.service.RoomService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,13 @@ public class RoomController {
     public Room createNewRoom(@RequestBody RoomRequestDto roomRequest){
         log.info("Entering POST /rooms");
         return roomService.create(roomRequest);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public RoomResponseDto getById(@PathVariable UUID id){
+        log.info("Entering POST /rooms");
+        return roomService.getById(id);
     }
 
     @PatchMapping("/{roomId}/dormitory/{dormitoryId}")

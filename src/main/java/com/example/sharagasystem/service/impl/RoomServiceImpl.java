@@ -1,17 +1,21 @@
 package com.example.sharagasystem.service.impl;
 
 import com.example.sharagasystem.exception.NotFoundException;
+import com.example.sharagasystem.mapper.FurnitureMapper;
 import com.example.sharagasystem.mapper.RoomMapper;
 import com.example.sharagasystem.model.Dormitory;
 import com.example.sharagasystem.model.Gender;
 import com.example.sharagasystem.model.Room;
 import com.example.sharagasystem.model.dto.request.RoomRequestDto;
+import com.example.sharagasystem.model.dto.response.furniture.FurnitureLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListLowInfoResponseDto;
 import com.example.sharagasystem.model.dto.response.room.RoomListResponseDto;
+import com.example.sharagasystem.model.dto.response.room.RoomResponseDto;
 import com.example.sharagasystem.repository.RoomRepository;
 import com.example.sharagasystem.service.DormitoryService;
 import com.example.sharagasystem.service.RoomService;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +30,7 @@ public class RoomServiceImpl implements RoomService {
     private final DormitoryService dormitoryService;
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
+    private final FurnitureMapper furnitureMapper;
 
     @Override
     @Transactional
@@ -54,6 +59,18 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Room not found with id: " + id)
         );
+    }
+
+    @Override
+    public RoomResponseDto getById(UUID id) {
+        Room room = findById(id);
+        RoomResponseDto roomResponseDto = roomMapper.mapToResponseDto(room);
+        List<FurnitureLowInfoResponseDto> list1 = room.getFurnitures()
+                .stream()
+                .map(furnitureMapper::mapToLowInfoResponseDto)
+                .toList();
+        roomResponseDto.setFurnitures(list1);
+        return roomResponseDto;
     }
 
     @Override
